@@ -1,10 +1,10 @@
 package com.example.nhatpham.ngrc_android_demo;
 
-import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,12 +17,14 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private EditText editTextDestAddress, editTextPort;
-    private Button buttonStart;
-    private TextView textViewState, textViewRx;
+    private Button buttonStartStop;
+    private TextView textViewStatus, textViewRx;
 
     private int port = 52002;
     private String address = "127.0.0.1";
     private int UpdatingPeriod = 1000; //ms
+    private boolean startGeneratePacket = false;
+
 
     /* Soldiers information */
     class soldierInfo {
@@ -42,7 +44,9 @@ public class MainActivity extends AppCompatActivity {
         /* Find UI elements */
         editTextDestAddress = (EditText) findViewById(R.id.editTextDestAddr);
         editTextPort = (EditText) findViewById(R.id.editTextPort);
-        buttonStart = (Button) findViewById(R.id.buttonStart);
+        buttonStartStop = (Button) findViewById(R.id.buttonStartStop);
+        textViewStatus = (TextView) findViewById(R.id.textViewStatus);
+        textViewStatus.setMovementMethod(new ScrollingMovementMethod());
 
         /* fill in solders info */
         soldierInfo dummySInfo = new soldierInfo();
@@ -77,7 +81,11 @@ public class MainActivity extends AppCompatActivity {
         soldiersList.add(dummySInfo);
     }
 
-    public void buttonStartOnClick(View view) throws IOException {
+    public void buttonStartStopOnClick(View view) throws IOException {
+        if (!startGeneratePacket) {
+            Log.d("Main", "buttonStartStopOnClick: starting...");
+            textViewStatus.append("Starting...\n");
+        }
 
 
     }
