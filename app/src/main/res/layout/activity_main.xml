@@ -10,15 +10,15 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Address"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_alignBaseline="@+id/textView3"
         android:layout_alignBottom="@+id/textView3"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="11dp" />
+        android:layout_marginStart="11dp"
+        android:text="Control Center Address"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView3"
@@ -38,9 +38,9 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:text=" NGRC Project SU demo"
+        android:layout_alignStart="@+id/textView"
+        android:text="NGRC Project SU demo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -53,7 +53,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView"
         android:ems="10"
-        android:hint="default: 127.0.0.1"
+        android:hint="e.g: 127.0.0.1"
         android:inputType="text"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="38dp" />
@@ -66,7 +66,7 @@
         android:layout_alignBottom="@+id/editTextDestAddr"
         android:layout_toEndOf="@+id/editTextDestAddr"
         android:ems="10"
-        android:hint="default: 52002"
+        android:hint="e.g: 52002"
         android:inputType="number"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="38dp" />
@@ -92,7 +92,7 @@
         android:text="Device" />
 
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/radioGroupDevSel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -101,7 +101,7 @@
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/radioButton"
+            android:id="@+id/radioButtonSU1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/textView5"
@@ -112,33 +112,33 @@
             android:text="SU1" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/radioButtonSU2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/radioGroup"
+            android:layout_below="@+id/radioGroupDevSel"
             android:layout_toEndOf="@+id/textView"
             android:layout_weight="1.07"
             android:gravity="center"
             android:text="SU2" />
 
         <RadioButton
-            android:id="@+id/radioButton3"
+            android:id="@+id/radioButtonSUR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/radioButton2"
-            android:layout_alignBottom="@+id/radioButton2"
+            android:layout_alignBaseline="@+id/radioButtonSU2"
+            android:layout_alignBottom="@+id/radioButtonSU2"
             android:layout_toEndOf="@+id/editTextDestAddr"
             android:layout_weight="1"
             android:gravity="center"
             android:text="SUR" />
 
         <RadioButton
-            android:id="@+id/radioButton4"
+            android:id="@+id/radioButtonSUC"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/radioButton3"
-            android:layout_alignBottom="@+id/radioButton3"
-            android:layout_toEndOf="@+id/radioButton3"
+            android:layout_alignBaseline="@+id/radioButtonSUR"
+            android:layout_alignBottom="@+id/radioButtonSUR"
+            android:layout_toEndOf="@+id/radioButtonSUR"
             android:layout_weight="1"
             android:gravity="center"
             android:text="SUC" />
@@ -151,7 +151,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:text="Status"
-        android:layout_below="@+id/radioGroup"
+        android:layout_below="@+id/radioGroupDevSel"
         android:layout_alignStart="@+id/textView5" />
 
     <TextView
@@ -161,7 +161,8 @@
         android:layout_alignStart="@+id/textView6"
         android:layout_below="@+id/textView6"
         android:layout_marginTop="7dp"
-        android:maxLines="10"
+        android:gravity="bottom"
+        android:maxLines="5"
         android:minLines="1"
         android:scrollbars="vertical"
         android:text="Hello World!!!" />
