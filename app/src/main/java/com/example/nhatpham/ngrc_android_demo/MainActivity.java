@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
             udpString = udpStringHeader + "&" + soldiersList.get(devIndex).sid + "&" + currentGpsLat
                     + ":" + currentGpsLong + "&" + soldiersList.get(devIndex).wjam + "&"
                     + soldiersList.get(devIndex).gjam + "&" + currentGState1 + ":" + currentGState2
-                    + ":" + currentGState2 + ":" + currentGState3 + "&";
+                    + ":" + currentGState3 + "&";
             textViewStatus.append(udpString + "\n");
         }
 
