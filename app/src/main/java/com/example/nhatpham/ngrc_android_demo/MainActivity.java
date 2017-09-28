@@ -29,7 +29,7 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     /* GUI */
-    private String ControlCenterURL = "https://google.com";
+    private String ControlCenterURL = "http://143.248.232.193:8080/drmweb";
     private Button buttonStartStop;
     private TextView textViewStatus;
     private RadioGroup devSel;
@@ -69,6 +69,11 @@ public class MainActivity extends AppCompatActivity {
         devSel = (RadioGroup) findViewById(R.id.radioGroupDevSel);
         ccWebView = (WebView) findViewById(R.id.ccWebView);
 
+        ccWebView.getSettings().setJavaScriptEnabled(true);
+        ccWebView.getSettings().setBuiltInZoomControls(true);
+        ccWebView.getSettings().setLoadWithOverviewMode(true);
+        ccWebView.getSettings().setUseWideViewPort(true);
+        ccWebView.setWebChromeClient(new WebChromeClient());
         ccWebView.setWebViewClient(new WebViewClient());
         ccWebView.loadUrl(ControlCenterURL);
 
@@ -197,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             // Progress
-            textViewStatus.append("Generating udp packet to " + backendAddress + ":" + backendPort + "\n");
+            textViewStatus.append("Generating udp packet...\n");
 
             /* Create udpString */
             int currentGpsLat, currentGpsLong, currentGState1, currentGState2, currentGState3;

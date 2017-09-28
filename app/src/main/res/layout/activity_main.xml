@@ -94,21 +94,21 @@
     <TextView
         android:id="@+id/textViewStatus"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textView6"
-        android:layout_below="@+id/textView6"
-        android:layout_marginTop="7dp"
+        android:layout_height="50dp"
         android:gravity="bottom"
         android:maxLines="3"
         android:minLines="1"
         android:scrollbars="vertical"
-        android:text="Hello World!!!\n" />
+        android:text="Hello World!!!\n"
+        android:layout_below="@+id/textView6"
+        android:layout_marginTop="11dp"
+        android:layout_alignStart="@+id/textView6" />
 
     <WebView
         android:id="@+id/ccWebView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="28dp"
+        android:layout_height="450dp"
+        android:layout_marginTop="26dp"
         android:layout_below="@+id/textViewStatus"
         android:layout_alignParentStart="true" />
 
