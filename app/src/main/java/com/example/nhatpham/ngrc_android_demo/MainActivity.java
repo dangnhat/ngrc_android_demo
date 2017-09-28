@@ -1,5 +1,7 @@
 package com.example.nhatpham.ngrc_android_demo;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -7,6 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -24,11 +29,12 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     /* GUI */
-    private EditText editTextDestAddress, editTextPort;
+    private String ControlCenterURL = "https://google.com";
     private Button buttonStartStop;
-    private TextView textViewStatus, textViewRx;
+    private TextView textViewStatus;
     private RadioGroup devSel;
     private int devUIId, devIndex = -1;
+    private WebView ccWebView;
 
     private int backendPort = 52002;
     private String backendAddress = "127.0.0.1";
@@ -57,13 +63,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         /* Find UI elements */
-        editTextDestAddress = (EditText) findViewById(R.id.editTextDestAddr);
-        editTextPort = (EditText) findViewById(R.id.editTextPort);
         buttonStartStop = (Button) findViewById(R.id.buttonStartStop);
         textViewStatus = (TextView) findViewById(R.id.textViewStatus);
         textViewStatus.setMovementMethod(new ScrollingMovementMethod());
         devSel = (RadioGroup) findViewById(R.id.radioGroupDevSel);
+        ccWebView = (WebView) findViewById(R.id.ccWebView);
 
+        ccWebView.setWebViewClient(new WebViewClient());
+        ccWebView.loadUrl(ControlCenterURL);
 
         /* fill in solders info */
         soldierInfo su1 = new soldierInfo();
