@@ -1,7 +1,5 @@
 package com.example.nhatpham.ngrc_android_demo;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,7 +11,6 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -29,7 +26,7 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     /* GUI */
-    private String ControlCenterURL = "http://143.248.232.193:8080/drmweb";
+    private String ControlCenterURL = "http://192.168.0.2:8080/drmweb";
     private Button buttonStartStop;
     private TextView textViewStatus;
     private RadioGroup devSel;
@@ -43,10 +40,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     /* Soldiers information */
-    private int gpsMovRange = 20; // +/- 20 from base value.
+    private int gpsMovRange = 10; // +/- 20 from base value.
     private int gstateRange = 200; // 0 - 200.
     private String udpString = "";
-    private String udpStringHeader = "usrp";
+    private String sucAddress = "12.34 ";
+    private String udpStringHeader = sucAddress + "usrp";
 
     class soldierInfo {
         public int sid;
@@ -78,49 +76,71 @@ public class MainActivity extends AppCompatActivity {
         ccWebView.loadUrl(ControlCenterURL);
 
         /* fill in solders info */
+        soldierInfo sur1 = new soldierInfo();
+        sur1.sid = 1111111111;
+        sur1.gpsLat = 59;
+        sur1.gpsLong = 80;
+        sur1.wjam = 5;
+        sur1.gjam = 0;
+        sur1.gstate1 = 100;
+        sur1.gstate2 = 130;
+        sur1.gstate3 = 150;
+        soldiersList.add(sur1);
+
+        soldierInfo sur2 = new soldierInfo();
+        sur2.sid = 1111111112;
+        sur2.gpsLat = 59;
+        sur2.gpsLong = 71;
+        sur2.wjam = 5;
+        sur2.gjam = 0;
+        sur2.gstate1 = 100;
+        sur2.gstate2 = 130;
+        sur2.gstate3 = 150;
+        soldiersList.add(sur2);
+
+        soldierInfo sur3 = new soldierInfo();
+        sur3.sid = 1111111113;
+        sur3.gpsLat = 50;
+        sur3.gpsLong = 55;
+        sur3.wjam = 5;
+        sur3.gjam = 0;
+        sur3.gstate1 = 100;
+        sur3.gstate2 = 130;
+        sur3.gstate3 = 150;
+        soldiersList.add(sur3);
+
         soldierInfo su1 = new soldierInfo();
-        su1.sid = 1111111113;
-        su1.gpsLat = 59;
-        su1.gpsLong = 80;
+        su1.sid = 1111111114;
+        su1.gpsLat = 70;
+        su1.gpsLong = 50;
         su1.wjam = 5;
         su1.gjam = 0;
-        su1.gstate1 = 100;
-        su1.gstate2 = 130;
-        su1.gstate3 = 150;
+        su1.gstate1 = 101;
+        su1.gstate2 = 131;
+        su1.gstate3 = 151;
         soldiersList.add(su1);
 
         soldierInfo su2 = new soldierInfo();
-        su2.sid = 1111111117;
-        su2.gpsLat = 59;
-        su2.gpsLong = 71;
+        su2.sid = 1111111115;
+        su2.gpsLat = 55;
+        su2.gpsLong = 45;
         su2.wjam = 5;
         su2.gjam = 0;
-        su2.gstate1 = 100;
-        su2.gstate2 = 130;
-        su2.gstate3 = 150;
+        su2.gstate1 = 101;
+        su2.gstate2 = 131;
+        su2.gstate3 = 151;
         soldiersList.add(su2);
 
         soldierInfo su3 = new soldierInfo();
-        su3.sid = 1301381719;
-        su3.gpsLat = 50;
-        su3.gpsLong = 55;
+        su3.sid = 1111111116;
+        su3.gpsLat = 60;
+        su3.gpsLong = 40;
         su3.wjam = 5;
         su3.gjam = 0;
-        su3.gstate1 = 100;
-        su3.gstate2 = 130;
-        su3.gstate3 = 150;
+        su3.gstate1 = 101;
+        su3.gstate2 = 131;
+        su3.gstate3 = 151;
         soldiersList.add(su3);
-
-        soldierInfo su4 = new soldierInfo();
-        su4.sid = 1302102032;
-        su4.gpsLat = 70;
-        su4.gpsLong = 50;
-        su4.wjam = 5;
-        su4.gjam = 0;
-        su4.gstate1 = 101;
-        su4.gstate2 = 131;
-        su4.gstate3 = 151;
-        soldiersList.add(su4);
     }
 
     public void buttonStartStopOnClick(View view) throws IOException {
@@ -130,27 +150,37 @@ public class MainActivity extends AppCompatActivity {
             /* Get data from radio box and editTexts */
             devUIId = devSel.getCheckedRadioButtonId();
             switch (devUIId) {
+                case R.id.radioButtonSUR1:
+                    textViewStatus.append("SUR1 device.\n");
+                    devIndex = 0;
+                    break;
+
+                case R.id.radioButtonSUR2:
+                    textViewStatus.append("SUR2 device.\n");
+                    devIndex = 1;
+                    break;
+
+                case R.id.radioButtonSUR3:
+                    textViewStatus.append("SUR3 device.\n");
+                    devIndex = 2;
+                    break;
+
                 case R.id.radioButtonSU1:
                     textViewStatus.append("SU1 device.\n");
-                    devIndex = 0;
+                    devIndex = 3;
                     break;
 
                 case R.id.radioButtonSU2:
                     textViewStatus.append("SU2 device.\n");
-                    devIndex = 1;
+                    devIndex = 4;
                     break;
 
-                case R.id.radioButtonSUR:
-                    textViewStatus.append("SUR device.\n");
-                    devIndex = 2;
+                case R.id.radioButtonSU3:
+                    textViewStatus.append("SU3 device.\n");
+                    devIndex = 5;
                     break;
 
-                case R.id.radioButtonSUC:
-                    textViewStatus.append("SUC is currently not supported, choose another device type and click start again.\n");
-                    devIndex = -1;
-                    break;
-
-                default:
+                  default:
                     textViewStatus.append("Unknown device, choose device type and click start again.\n");
                     devIndex = -1;
                     break;
@@ -160,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            textViewStatus.append("Dev string:\n" + soldiersList.get(devIndex).sid + " "
+            textViewStatus.append("Dev string:\n" + sucAddress + " " + soldiersList.get(devIndex).sid + " "
                     + soldiersList.get(devIndex).gpsLat + " " + soldiersList.get(devIndex).gpsLong
                     + " " + soldiersList.get(devIndex).wjam + " " + soldiersList.get(devIndex).gjam
                     + " " + soldiersList.get(devIndex).gstate1 + " " + soldiersList.get(devIndex).gstate2
